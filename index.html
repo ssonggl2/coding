@@ -1,21 +1,20 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>직장 내 괴롭힘 사측 조사 체크리스트</title>
+  <title>사실관계 기록 도구</title>
   <style>
     :root {
-      --bg: #f6f3ec;
-      --paper: #fffcf6;
-      --ink: #22252a;
-      --sub: #5d626a;
-      --line: #d7cfbf;
-      --brand: #0f5b52;
-      --brand-soft: #dff0ed;
-      --alert: #834400;
+      --bg: #f2efe8;
+      --surface: #fffdf8;
+      --ink: #202124;
+      --muted: #65696d;
+      --line: #d8d1c2;
+      --accent: #005a44;
+      --accent-soft: #d9efe7;
+      --warn: #8d3f00;
       --radius: 14px;
-      --shadow: 0 10px 24px rgba(33, 37, 42, 0.08);
     }
 
     * { box-sizing: border-box; }
@@ -23,97 +22,85 @@
     body {
       margin: 0;
       color: var(--ink);
-      font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
       background:
-        radial-gradient(circle at 5% 8%, #fce9c8 0, transparent 22%),
-        radial-gradient(circle at 90% 4%, #d8ebe6 0, transparent 24%),
-        linear-gradient(180deg, #f9f6f0 0%, #f2eee5 100%);
+        radial-gradient(circle at 80% 10%, #f8eecf 0%, transparent 35%),
+        radial-gradient(circle at 10% 20%, #d7e8de 0%, transparent 28%),
+        var(--bg);
+      font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
       line-height: 1.55;
     }
 
     .wrap {
-      width: min(1080px, 92vw);
-      margin: 32px auto 64px;
+      width: min(980px, 92vw);
+      margin: 34px auto 60px;
     }
 
     .hero {
-      background: linear-gradient(120deg, #fff4d8 0%, #eaf8f2 90%);
-      border: 1px solid #dfd4bc;
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: var(--shadow);
-      animation: reveal .45s ease both;
+      background: linear-gradient(135deg, #fffbe9 0%, #f4fff6 100%);
+      border: 1px solid #e7deca;
+      border-radius: 22px;
+      padding: 26px;
+      box-shadow: 0 8px 24px rgba(62, 54, 40, 0.07);
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      font-size: clamp(1.4rem, 2vw, 2rem);
       letter-spacing: -0.02em;
     }
 
     .subtitle {
-      margin: 8px 0 0;
-      color: var(--sub);
+      margin-top: 10px;
+      color: var(--muted);
     }
 
-    .meta {
+    .callout {
       margin-top: 14px;
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .grid {
+      margin-top: 22px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 10px;
+      gap: 16px;
     }
 
     .card {
-      margin-top: 16px;
-      background: var(--paper);
+      background: var(--surface);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 18px;
-      box-shadow: 0 5px 16px rgba(33, 37, 42, 0.06);
-      animation: reveal .45s ease both;
+      box-shadow: 0 3px 10px rgba(55, 43, 26, 0.05);
+      animation: rise 0.4s ease both;
     }
 
     .card h2 {
       margin: 0 0 10px;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
     }
 
-    .desc {
-      margin: 0 0 10px;
-      color: var(--sub);
-      font-size: 0.94rem;
-    }
-
-    .check-grid {
+    .field-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
     }
 
-    .chip {
-      display: grid;
-      grid-template-columns: 18px 1fr;
-      gap: 8px;
-      align-items: center;
-      padding: 9px 10px;
-      border: 1px solid #e5ddcd;
-      border-radius: 10px;
-      background: #fbf8f2;
+    label {
       font-size: 0.92rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 5px;
     }
 
-    input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      margin: 0;
-      accent-color: var(--brand);
-    }
-
-    input[type="text"],
-    input[type="date"],
-    textarea {
+    input,
+    textarea,
+    select {
       width: 100%;
-      border: 1px solid #cac1af;
+      border: 1px solid #c6bfaf;
       border-radius: 10px;
       background: #fff;
       color: var(--ink);
@@ -122,262 +109,561 @@
     }
 
     textarea {
-      min-height: 92px;
+      min-height: 86px;
       resize: vertical;
     }
 
-    .field-row {
-      margin-top: 10px;
+    .mini-table {
+      width: 100%;
+      border: 1px solid #e3dbc9;
+      border-radius: 10px;
+      padding: 8px;
+      margin-top: 8px;
+      background: #fff;
+      overflow-x: auto;
+    }
+
+    .mini-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 10px;
+      gap: 6px;
     }
 
-    label {
-      display: block;
-      color: var(--sub);
-      font-size: 0.9rem;
-      margin-bottom: 4px;
+    .mini-cell {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #eee7d8;
+      border-radius: 8px;
+      padding: 6px 8px;
+      background: #faf7ef;
+      font-size: 0.86rem;
+      color: #2f3234;
+      line-height: 1.35;
     }
 
-    .actions {
-      margin-top: 18px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+    .mini-cell input[type="checkbox"] {
+      margin: 0;
+      flex: 0 0 auto;
+    }
+
+    .mini-text {
+      white-space: nowrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    th,
+    td {
+      border: 1px solid #d8d1c2;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #faf4e6;
+      font-weight: 600;
+    }
+
+    .group-row td {
+      background: #eef6f2;
+      font-weight: 700;
+      color: #2f4f46;
+    }
+
+    .note {
+      color: var(--warn);
+      font-size: 0.88rem;
+      margin-top: 6px;
     }
 
     .btn {
       border: 0;
       border-radius: 999px;
-      padding: 10px 15px;
-      font: inherit;
+      padding: 10px 16px;
+      background: var(--accent);
+      color: #fff;
       font-weight: 700;
       cursor: pointer;
-      color: #fff;
-      background: var(--brand);
     }
 
-    .btn.alt {
-      background: #775429;
+    .btn:hover { filter: brightness(1.05); }
+    .btn.alt { background: #6a4f22; }
+    .btn.small {
+      padding: 7px 12px;
+      font-size: 0.86rem;
     }
+    .btn.danger { background: #8b2f2f; }
 
-    .progress {
-      margin-top: 12px;
-      background: var(--brand-soft);
-      border: 1px solid #c5e3dc;
-      padding: 10px 12px;
-      border-radius: 10px;
-      font-size: 0.93rem;
-    }
-
-    .warn {
-      color: var(--alert);
-      font-size: 0.88rem;
+    .behavior-list {
+      display: grid;
+      gap: 10px;
       margin-top: 8px;
     }
 
-    .footer-note {
-      margin-top: 18px;
-      color: var(--sub);
-      font-size: 0.88rem;
+    .behavior-item {
+      border: 1px solid #e3dbc9;
+      border-radius: 10px;
+      padding: 10px;
+      background: #fcf8ee;
     }
 
-    @keyframes reveal {
-      from { transform: translateY(8px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    .behavior-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: #5a5142;
+      font-weight: 700;
     }
 
-    @media print {
-      body { background: #fff; }
-      .actions { display: none; }
-      .hero, .card {
-        box-shadow: none;
-        border-color: #bbb;
-      }
+    .incident-section-title {
+      margin-top: 10px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: #5a5142;
+      font-weight: 700;
+    }
+
+    .footer {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .link-chip {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid #c9c0ae;
+      background: #fff;
+      color: #2d2f31;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .link-chip:hover { background: #f6f1e4; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 700px) {
+      .wrap { margin-top: 18px; }
+      .hero, .card { padding: 14px; }
+      table { display: block; overflow-x: auto; }
+      .mini-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <main class="wrap">
     <section class="hero">
-      <h1>직장 내 괴롭힘 사측 조사 체크리스트</h1>
-      <p class="subtitle">근로기준법 제76조의2, 제76조의3 기준으로 조사 절차를 점검하는 내부용 페이지</p>
-      <div class="meta">
-        <div>
-          <label for="date">작성일</label>
-          <input id="date" type="date" />
+      <h1>사실관계 기록 도구</h1>
+      <p class="subtitle">직장 내 갈등 상황에서 사실을 구조화해 상담, 내부 신고, 조사 과정에 활용하기 위한 기록 페이지</p>
+      <div class="callout">
+        이 페이지는 <strong>괴롭힘 여부를 판단하는 도구가 아닙니다.</strong>
+        판단을 대신하지 않고, 판단이 가능하도록 객관적 기록의 기반을 제공합니다.
+      </div>
+      <a class="link-chip" href="https://www.moel.go.kr/local/ulsan/info/policydata/view.do?bbs_seq=20230500514" target="_blank" rel="noopener noreferrer">
+        예방·대응 매뉴얼 바로가기
+      </a>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>사용자 기본 정보</h2>
+        <div class="field-grid">
+          <div>
+            <label for="docDate">작성일</label>
+            <input id="docDate" type="date" />
+          </div>
+          <div>
+            <label for="writer">작성자(본인)</label>
+            <input id="writer" type="text" placeholder="이름" />
+          </div>
+          <div>
+            <label for="caseId">사건 ID(선택)</label>
+            <input id="caseId" type="text" placeholder="예: 2026-01" />
+          </div>
+          <div>
+            <label for="company">회사명(선택)</label>
+            <input id="company" type="text" />
+          </div>
         </div>
-        <div>
-          <label for="caseNo">사건번호</label>
-          <input id="caseNo" type="text" placeholder="예: 2026-HR-001" />
+      </article>
+
+      <article class="card">
+        <h2>1. 사건 기록</h2>
+        <p class="note" style="margin-bottom:8px;">
+          사건 기록 전, <strong>예방·대응 매뉴얼을 꼭 읽고</strong> 작성해 주세요.
+          작성 중 기준이 필요하면
+          <a href="https://www.moel.go.kr/local/ulsan/info/policydata/view.do?bbs_seq=20230500514" target="_blank" rel="noopener noreferrer">예방·대응 매뉴얼</a>
+          을 바로 열어 참고하세요.
+        </p>
+        <label>사건별 기록 (여러 건 추가 가능)</label>
+        <div id="incidentList" class="behavior-list"></div>
+        <button type="button" class="btn small" id="addIncidentBtn" style="margin-top:8px;">사건 추가</button>
+      </article>
+
+      <article class="card">
+        <h2>2. 타임라인 정리</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>순번</th>
+              <th>날짜/시간</th>
+              <th>장소</th>
+              <th>핵심 사건</th>
+              <th>참고인</th>
+              <th>증거 연결</th>
+            </tr>
+          </thead>
+          <tbody id="timelineBody"></tbody>
+        </table>
+        <p class="note" style="margin-top:8px;">타임라인은 사건 기록 입력 내용을 기준으로 자동 생성되며, 행위자별로 묶어 표시됩니다.</p>
+        <label for="pattern" style="margin-top:10px;">반복 여부 및 패턴 메모</label>
+        <textarea id="pattern" placeholder="특정 시간/장소/상대와의 연관성, 강도 변화"></textarea>
+      </article>
+
+      <article class="card">
+        <h2>3. 감정 VS 사실 분리</h2>
+        <label for="raw">원문(자유 서술)</label>
+        <textarea id="raw"></textarea>
+
+        <div class="field-grid">
+          <div>
+            <label for="emotion">감정 표현</label>
+            <textarea id="emotion" placeholder="예: 수치심, 두려움, 분노"></textarea>
+          </div>
+          <div>
+            <label for="fact">사실 표현(검증 가능한 정보만)</label>
+            <textarea id="fact" placeholder="예: 2026-04-08 10:24 회의실에서 A가 B에게 큰 소리로 ..."></textarea>
+          </div>
         </div>
-        <div>
-          <label for="owner">조사담당자</label>
-          <input id="owner" type="text" placeholder="담당자명" />
+      </article>
+
+      <article class="card">
+        <h2>안내</h2>
+        <div class="field-grid" style="margin-bottom:10px;">
+          <div>
+            <label for="recipientEmail">기록 수신 이메일(직접 입력)</label>
+            <input id="recipientEmail" type="email" placeholder="예: 담당자@기관.kr" />
+          </div>
         </div>
-      </div>
-      <div class="actions">
-        <button class="btn" type="button" onclick="window.print()">인쇄 / PDF 저장</button>
-        <button class="btn alt" type="button" onclick="resetAll()">체크 초기화</button>
-      </div>
-      <div class="progress" id="progress">진행률 계산 중...</div>
-    </section>
-
-    <section class="card">
-      <h2>1) 신고 접수 및 사건 등록</h2>
-      <p class="desc">제76조의3 제1항, 제2항</p>
-      <div class="check-grid">
-        <label class="chip"><input type="checkbox" />신고 접수일시 기록</label>
-        <label class="chip"><input type="checkbox" />신고자/피해자/행위자 정보 확인</label>
-        <label class="chip"><input type="checkbox" />주요 주장 사실 요약</label>
-        <label class="chip"><input type="checkbox" />1차 증거 확보</label>
-        <label class="chip"><input type="checkbox" />사용자 인지 경위 기록</label>
-        <label class="chip"><input type="checkbox" />지체 없는 조사 착수</label>
-      </div>
-      <div class="field-row">
-        <div><label for="memo1">메모</label><textarea id="memo1"></textarea></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>2) 조사기간 중 피해자 보호조치</h2>
-      <p class="desc">제76조의3 제3항</p>
-      <div class="check-grid">
-        <label class="chip"><input type="checkbox" />피해근로자등 의사 확인</label>
-        <label class="chip"><input type="checkbox" />근무장소 변경 검토</label>
-        <label class="chip"><input type="checkbox" />유급휴가 검토</label>
-        <label class="chip"><input type="checkbox" />임시 분리조치 검토</label>
-        <label class="chip"><input type="checkbox" />시행일/기간/담당자 기록</label>
-        <label class="chip"><input type="checkbox" />피해자 의사 반하는 조치 금지 확인</label>
-      </div>
-      <div class="field-row">
-        <div><label for="protect">결정된 보호조치</label><textarea id="protect"></textarea></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>3) 조사기구 구성 및 비밀유지 고지</h2>
-      <p class="desc">제76조의3 제2항, 제7항</p>
-      <div class="check-grid">
-        <label class="chip"><input type="checkbox" />이해충돌 없는 조사담당 지정</label>
-        <label class="chip"><input type="checkbox" />조사범위/일정 수립</label>
-        <label class="chip"><input type="checkbox" />비밀유지 의무 고지</label>
-        <label class="chip"><input type="checkbox" />자료 접근권한 최소화</label>
-        <label class="chip"><input type="checkbox" />조사기록 보관 책임자 지정</label>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>4) 사실조사 수행</h2>
-      <div class="check-grid">
-        <label class="chip"><input type="checkbox" />피해자 면담</label>
-        <label class="chip"><input type="checkbox" />행위자 면담</label>
-        <label class="chip"><input type="checkbox" />참고인 면담</label>
-        <label class="chip"><input type="checkbox" />물적 증거 수집</label>
-        <label class="chip"><input type="checkbox" />사건 연표 작성</label>
-        <label class="chip"><input type="checkbox" />진술 불일치 사항 정리</label>
-      </div>
-      <div class="field-row">
-        <div><label for="evidence">핵심 증거 목록</label><textarea id="evidence" placeholder="증거1 / 증거2 / 증거3"></textarea></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>5) 법률요건 판단</h2>
-      <p class="desc">제76조의2</p>
-      <div class="check-grid">
-        <label class="chip"><input type="checkbox" />지위 또는 관계 우위 이용 인정 여부 검토</label>
-        <label class="chip"><input type="checkbox" />업무상 적정범위 초과 여부 검토</label>
-        <label class="chip"><input type="checkbox" />신체·정신 고통 또는 근무환경 악화 검토</label>
-        <label class="chip"><input type="checkbox" />종합판단(해당/불해당) 문서화</label>
-      </div>
-      <div class="field-row">
-        <div><label for="judge">판단 근거 요약</label><textarea id="judge"></textarea></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>6) 조사결과에 따른 조치</h2>
-      <p class="desc">제76조의3 제4항, 제5항</p>
-      <div class="check-grid">
-        <label class="chip"><input type="checkbox" />피해자 요청사항 확인</label>
-        <label class="chip"><input type="checkbox" />피해자 보호조치 시행</label>
-        <label class="chip"><input type="checkbox" />행위자 조치안 확정(징계/배치변경)</label>
-        <label class="chip"><input type="checkbox" />징계 전 피해자 의견 청취</label>
-        <label class="chip"><input type="checkbox" />조치 시행일 기록</label>
-      </div>
-      <div class="field-row">
-        <div><label for="action">최종 조치내용</label><textarea id="action"></textarea></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>7) 불리한 처우 금지 및 사후관리</h2>
-      <p class="desc">제76조의3 제6항</p>
-      <div class="check-grid">
-        <label class="chip"><input type="checkbox" />신고자/피해자 불이익 여부 모니터링</label>
-        <label class="chip"><input type="checkbox" />보복성 평가·전보·업무배제 점검</label>
-        <label class="chip"><input type="checkbox" />종결 후 1개월 추적면담</label>
-        <label class="chip"><input type="checkbox" />종결 후 3개월 추적점검</label>
-        <label class="chip"><input type="checkbox" />재발방지 교육 및 조직개선</label>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>8) 문서화 및 보관</h2>
-      <div class="check-grid">
-        <label class="chip"><input type="checkbox" />접수서</label>
-        <label class="chip"><input type="checkbox" />면담기록지</label>
-        <label class="chip"><input type="checkbox" />증거목록/원본확인기록</label>
-        <label class="chip"><input type="checkbox" />조사보고서</label>
-        <label class="chip"><input type="checkbox" />조치 시행 문서</label>
-        <label class="chip"><input type="checkbox" />사후관리 기록</label>
-        <label class="chip"><input type="checkbox" />비밀보호 보관(열람권한 제한)</label>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>9) 법적 리스크 점검</h2>
-      <div class="check-grid">
-        <label class="chip"><input type="checkbox" />객관적 조사 미실시 리스크 점검</label>
-        <label class="chip"><input type="checkbox" />피해자 보호조치 미이행 리스크 점검</label>
-        <label class="chip"><input type="checkbox" />행위자 필요조치 미이행 리스크 점검</label>
-        <label class="chip"><input type="checkbox" />조사 비밀누설 리스크 점검</label>
-        <label class="chip"><input type="checkbox" />신고자·피해자 불리한 처우 금지 위반 점검</label>
-        <label class="chip"><input type="checkbox" />사용자의 괴롭힘 직접행위 여부 점검</label>
-      </div>
-      <p class="warn">주의: 본 페이지는 내부 조사 실무용 점검도구이며, 최종 법률판단은 노무·법률 전문가 검토를 병행하세요.</p>
-      <p class="footer-note">참고 법조문: 근로기준법 제76조의2, 제76조의3, 제93조, 제109조, 제116조</p>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+          <button type="button" class="btn" id="printBtn">인쇄/PDF 저장</button>
+          <button type="button" class="btn alt" id="saveTxtBtn">기록 텍스트 저장</button>
+          <button type="button" class="btn" id="emailBtn">이메일 전송</button>
+        </div>
+        <p class="note">이메일 전송은 TXT 파일을 먼저 저장한 뒤, 사용자가 직접 입력한 수신 이메일로 메일앱을 엽니다. 저장된 PDF/TXT 파일을 메일에 첨부해 주세요.</p>
+        <p class="footer">이 페이지는 법률 판단이나 결론을 대신하지 않습니다. 필요 시 노무사, 변호사, 상담사 또는 회사의 공식 고충 처리 절차와 함께 활용하세요.</p>
+      </article>
     </section>
   </main>
 
   <script>
-    const checks = Array.from(document.querySelectorAll('input[type="checkbox"]'));
-    const progressEl = document.getElementById('progress');
+    const printBtn = document.getElementById("printBtn");
+    const saveTxtBtn = document.getElementById("saveTxtBtn");
+    const emailBtn = document.getElementById("emailBtn");
+    const recipientEmailInput = document.getElementById("recipientEmail");
+    const addIncidentBtn = document.getElementById("addIncidentBtn");
+    const incidentList = document.getElementById("incidentList");
+    const timelineBody = document.getElementById("timelineBody");
 
-    function updateProgress() {
-      const done = checks.filter((c) => c.checked).length;
-      const total = checks.length;
-      const rate = total ? Math.round((done / total) * 100) : 0;
-      progressEl.textContent = `체크 완료 ${done} / ${total} (${rate}%)`;
+    function createIncidentItem() {
+      const item = document.createElement("div");
+      item.className = "behavior-item";
+
+      const index = incidentList.children.length + 1;
+      item.innerHTML = `
+        <div class="behavior-head">
+          <span>사건 ${index}</span>
+          <button type="button" class="btn small danger js-remove-incident">삭제</button>
+        </div>
+        <div class="incident-section-title">날짜/시간/장소/관련자</div>
+        <div class="field-grid">
+          <div><label>날짜</label><input type="date" class="js-incident-date" /></div>
+          <div><label>시간</label><input type="text" class="js-incident-time" placeholder="예: 10:20~10:40" /></div>
+          <div><label>장소</label><input type="text" class="js-incident-place" /></div>
+          <div><label>행위자(복수 가능)</label><input type="text" class="js-incident-actor" placeholder="예: 팀장 A, 동료 B" /></div>
+          <div><label>참고인(복수 가능)</label><input type="text" class="js-incident-witness" placeholder="예: 동료 C, 동료 D" /></div>
+        </div>
+        <div class="incident-section-title">행위유형 체크 (매뉴얼 예시 기반)</div>
+        <div class="mini-table"><div class="mini-grid js-incident-type-list"></div></div>
+        <label style="margin-top:8px;">기타 행위유형 (직접 입력)</label>
+        <input type="text" class="js-incident-type-etc" placeholder="예: 인트라넷 계정 차단, 반복적 공개 망신 주기" />
+        <div class="incident-section-title">상황 설명 및 발언 내용 기록</div>
+        <label>상황 설명 (사실 중심)</label>
+        <textarea class="js-incident-desc" placeholder="시작 상황, 행동/발언, 직후 결과 순서로 기록"></textarea>
+        <label>기억나는 발언 내용(가능하면 직접 인용)</label>
+        <textarea class="js-incident-quote" placeholder="예: '회의 준비가 왜 이 모양이야?' (10:24, 회의실)"></textarea>
+        <div class="incident-section-title">증거 여부 체크 및 증거 목록</div>
+        <div class="mini-table"><div class="mini-grid js-incident-proof-listbox"></div></div>
+        <label style="margin-top:8px;">증거 목록 (파일명/저장 위치/확보일)</label>
+        <textarea class="js-incident-proof-list" placeholder="1) 사내메신저_캡처.png / C:\\증거\\ / 2026-04-09"></textarea>
+      `;
+
+      const removeBtn = item.querySelector(".js-remove-incident");
+      removeBtn.addEventListener("click", () => {
+        item.remove();
+        [...incidentList.children].forEach((child, idx) => {
+          const title = child.querySelector(".behavior-head span");
+          title.textContent = `사건 ${idx + 1}`;
+        });
+        refreshTimeline();
+      });
+
+      incidentList.appendChild(item);
+
+      const incidentTypes = [
+        "업무능력·성과 폄하/조롱",
+        "정당한 이유 없는 차별(훈련·승진·보상·대우)",
+        "반복적 과중업무 부여",
+        "업무 미부여/허드렛일만 부여",
+        "중요정보 제공·의사결정 배제",
+        "휴가·병가·복지 사용 압력/방해",
+        "과도한 감시",
+        "사적 심부름 지시",
+        "부서이동·퇴사 강요",
+        "뒷담화·소문 유포",
+        "신체적 위협·폭력",
+        "욕설·위협적 발언",
+        "공개적/온라인 모욕",
+        "음주·흡연·회식 강요",
+        "집단 따돌림"
+      ];
+
+      const proofTypes = ["메신저", "이메일", "문자", "녹음", "사진/영상", "문서"];
+
+      const renderMiniGrid = (target, inputClass, values) => {
+        target.innerHTML = values.map((value) =>
+          `<label class="mini-cell"><input type="checkbox" class="${inputClass}" value="${value}" /><span class="mini-text">${value}</span></label>`
+        ).join("");
+      };
+
+      renderMiniGrid(item.querySelector(".js-incident-type-list"), "js-incident-type", incidentTypes);
+      renderMiniGrid(item.querySelector(".js-incident-proof-listbox"), "js-incident-proof", proofTypes);
+
+      item.addEventListener("input", refreshTimeline);
+      item.addEventListener("change", refreshTimeline);
     }
 
-    function resetAll() {
-      checks.forEach((c) => { c.checked = false; });
-      updateProgress();
+    function getIncidents() {
+      return [...incidentList.children].map((item) => {
+        const date = item.querySelector(".js-incident-date").value.trim();
+        const time = item.querySelector(".js-incident-time").value.trim();
+        const place = item.querySelector(".js-incident-place").value.trim();
+        const actor = item.querySelector(".js-incident-actor").value.trim();
+        const witness = item.querySelector(".js-incident-witness").value.trim();
+        const types = [...item.querySelectorAll(".js-incident-type:checked")]
+          .map((el) => el.value);
+        const typeEtc = item.querySelector(".js-incident-type-etc").value.trim();
+        if (typeEtc) {
+          types.push(`기타: ${typeEtc}`);
+        }
+        const desc = item.querySelector(".js-incident-desc").value.trim();
+        const quote = item.querySelector(".js-incident-quote").value.trim();
+        const proofList = item.querySelector(".js-incident-proof-list").value.trim();
+        const proofs = [...item.querySelectorAll(".js-incident-proof:checked")]
+          .map((el) => el.value);
+
+        return { date, time, place, actor, witness, types, desc, quote, proofs, proofList };
+      });
     }
 
-    checks.forEach((c) => c.addEventListener('change', updateProgress));
-    updateProgress();
+    function timelineSortKey(incident) {
+      const date = incident.date || "9999-12-31";
+      const timeText = (incident.time || "").trim();
+      const firstTime = (timeText.split("~")[0] || "").trim();
+      const normalizedTime = /^\d{1,2}:\d{2}$/.test(firstTime)
+        ? firstTime.padStart(5, "0")
+        : "99:99";
+      return `${date} ${normalizedTime}`;
+    }
 
-    const dateField = document.getElementById('date');
-    if (dateField && !dateField.value) {
-      const today = new Date();
-      const y = today.getFullYear();
-      const m = String(today.getMonth() + 1).padStart(2, '0');
-      const d = String(today.getDate()).padStart(2, '0');
-      dateField.value = `${y}-${m}-${d}`;
+    function escapeHtml(text) {
+      return text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+
+    function refreshTimeline() {
+      const incidents = getIncidents();
+      if (incidents.length === 0) {
+        timelineBody.innerHTML = `<tr><td colspan="6">사건 기록이 아직 없습니다.</td></tr>`;
+        return;
+      }
+
+      const grouped = incidents.reduce((acc, incident) => {
+        const key = incident.actor || "행위자 미입력";
+        if (!acc[key]) acc[key] = [];
+        acc[key].push(incident);
+        return acc;
+      }, {});
+
+      const groupNames = Object.keys(grouped).sort((a, b) => a.localeCompare(b, "ko"));
+      const rows = [];
+      let timelineNo = 1;
+
+      groupNames.forEach((groupName) => {
+        rows.push(
+          `<tr class="group-row"><td colspan="6">행위자: ${escapeHtml(groupName)} (${grouped[groupName].length}건)</td></tr>`
+        );
+
+        grouped[groupName]
+          .sort((a, b) => timelineSortKey(a).localeCompare(timelineSortKey(b)))
+          .forEach((incident) => {
+            const timeLabel = `${incident.date || "날짜 미입력"} ${incident.time || "시간 미입력"}`.trim();
+            const summary = incident.desc || incident.quote || "상황 설명 미입력";
+            rows.push(
+              `<tr>
+                <td>${timelineNo++}</td>
+                <td>${escapeHtml(timeLabel)}</td>
+                <td>${escapeHtml(incident.place || "장소 미입력")}</td>
+                <td>${escapeHtml(summary)}</td>
+                <td>${escapeHtml(incident.witness || "참고인 미입력")}</td>
+                <td>${escapeHtml(incident.proofList || (incident.proofs.length > 0 ? incident.proofs.join(", ") : "증거 없음"))}</td>
+              </tr>`
+            );
+          });
+      });
+
+      timelineBody.innerHTML = rows.join("");
+    }
+
+    function collectFormDataAsText() {
+      const values = {
+        docDate: document.getElementById("docDate").value,
+        writer: document.getElementById("writer").value,
+        caseId: document.getElementById("caseId").value,
+        company: document.getElementById("company").value,
+        pattern: document.getElementById("pattern").value,
+        raw: document.getElementById("raw").value,
+        emotion: document.getElementById("emotion").value,
+        fact: document.getElementById("fact").value
+      };
+
+      const incidents = getIncidents();
+      const incidentText = incidents.length > 0
+        ? incidents.map((incident, i) =>
+`사건 ${i + 1}
+날짜: ${incident.date || ""}
+시간: ${incident.time || ""}
+장소: ${incident.place || ""}
+행위자: ${incident.actor || ""}
+참고인: ${incident.witness || ""}
+행위유형: ${incident.types.length > 0 ? incident.types.join(", ") : "선택 없음"}
+상황 설명:
+${incident.desc || ""}
+발언 기록:
+${incident.quote || ""}
+증거 유형: ${incident.proofs.length > 0 ? incident.proofs.join(", ") : "선택 없음"}
+증거 목록:
+${incident.proofList || ""}
+`).join("\n")
+        : "사건 기록 없음";
+
+      return `[사실관계 기록]
+작성일: ${values.docDate || ""}
+작성자: ${values.writer || ""}
+사건 ID: ${values.caseId || ""}
+회사명: ${values.company || ""}
+
+[1. 사건 기록]
+${incidentText}
+
+[2. 타임라인/패턴]
+패턴 메모:
+${values.pattern || ""}
+
+[3. 감정 VS 사실]
+원문:
+${values.raw || ""}
+
+감정 표현:
+${values.emotion || ""}
+
+사실 표현:
+${values.fact || ""}
+`;
+    }
+
+    function downloadRecordTxt() {
+      const content = collectFormDataAsText();
+      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "사실관계기록_내보내기.txt";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    addIncidentBtn.addEventListener("click", () => {
+      createIncidentItem();
+      refreshTimeline();
+    });
+
+    printBtn.addEventListener("click", () => {
+      window.print();
+    });
+
+    saveTxtBtn.addEventListener("click", () => {
+      downloadRecordTxt();
+    });
+
+    emailBtn.addEventListener("click", () => {
+      const caseId = document.getElementById("caseId").value.trim();
+      const writer = document.getElementById("writer").value.trim();
+      const recipientEmail = recipientEmailInput.value.trim();
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipientEmail);
+
+      if (!emailOk) {
+        alert("수신 이메일을 직접 입력해 주세요. 예: user@example.com");
+        recipientEmailInput.focus();
+        return;
+      }
+
+      const subject = `[사실관계 기록 전달] ${caseId || "사건기록"}`;
+      downloadRecordTxt();
+      const body =
+`안녕하세요.
+피해근로자 작성 기록을 전달드립니다.
+
+작성자: ${writer || "미입력"}
+
+[첨부 안내]
+자동 저장된 TXT 파일(사실관계기록_내보내기.txt)과 필요 시 PDF 파일을 첨부해 주세요.`;
+      const mailto = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+    });
+
+    createIncidentItem();
+    refreshTimeline();
+
+    const docDate = document.getElementById("docDate");
+    if (docDate && !docDate.value) {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      docDate.value = `${y}-${m}-${day}`;
     }
   </script>
 </body>
